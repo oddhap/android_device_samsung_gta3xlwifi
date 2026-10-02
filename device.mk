@@ -17,8 +17,7 @@ PRODUCT_BUILD_VENDOR_IMAGE := false
 PRODUCT_BUILD_RECOVERY_IMAGE := true
 
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl.recovery \
-    android.hardware.health@2.1-service.recovery
+    android.hardware.health-service.example_recovery
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.gta3xlwifi.power.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.gta3xlwifi.power.rc \
@@ -39,3 +38,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # VINTF metadata is registered in BoardConfig; stock vendor policy remains in
 # the prebuilt vendor image and is checked separately against the new system.
+
+PRODUCT_PACKAGES += framework_compatibility_matrix.gta3xlwifi.3.xml
+
+# Select the device-specific iptables/qtaguid implementation.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.gta3xlwifi.legacy_networking=true

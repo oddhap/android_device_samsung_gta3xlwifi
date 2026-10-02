@@ -1,25 +1,28 @@
-# Samsung Galaxy Tab A 10.1 (2019), SM-T510 / gta3xlwifi
+# SM-T510 native LineageOS 21 development port
 
-Native LineageOS 19.1 (Android 12L) device tree, without GApps. ARM32 userspace,
-ARM64 kernel/Binder, stock T510XXU5CWA1 vendor. This is a development port.
-Android boots; Wi-Fi, browser video/audio, both cameras and rotation have been
-reported working on one tablet. Long-term stability, Bluetooth, microSD and
-credential-protected encryption/decryption need further testing.
+This device product builds Android 14 for `gta3xlwifi` from pinned LineageOS 21
+sources. It remains a development port: no completed Android 14 ROM has been
+verified or tested on the tablet yet. The working Android 12L build provides
+hardware/configuration provenance, not Android 14 validation.
 
-Contains the tested SystemUI/device integration, legacy qtaguid configuration,
-bounded CPU/GPU interaction and launch boosts, enforcing system SELinux rules,
-power-control permissions, configfs recovery USB and Samsung image packaging.
-Do not repartition or relock the bootloader with these custom images installed.
+Android userspace remains ARM32 to match Samsung's graphics and HAL libraries.
+The ARM64 Samsung kernel and CWA1 vendor image are retained. No GApps, GSI,
+A/B layout or dynamic partition conversion is included.
 
-Clone this repository into `device/samsung/gta3xlwifi` in the pinned Lineage tree.
-Generated `prebuilt/` and stock compatibility-policy files are staged by the
-integration tools, rather than checked into this device repository.
+The integration tools under `lineage-21/tools` stage verified kernel/vendor
+artifacts, apply a bounded native CPU/GPU boost, and implement device-only
+iptables/qtaguid networking for the old kernel. The platform source remains
+current; compatibility adaptations do not replace projects with old forks.
 
-Build instructions, pinned manifests, platform patches and validation tools:
-https://github.com/oddhap/android_build_samsung_gta3xlwifi
-Kernel: https://github.com/oddhap/android_kernel_samsung_gta3xlwifi
-Vendor inputs: https://github.com/oddhap/android_vendor_samsung_gta3xlwifi
-Separate TWRP device: https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp
+Boot retains Samsung's physical system-as-root layout and kernel-only boot
+image, using the existing unlocked bootloader. Recovery has a separate ramdisk.
+SELinux remains enforcing and generated platform policy tests pass. The actual
+stock vendor CIL links using Android init's runtime flags. A separate strict
+cross-version neverallow check fails on old Samsung policy, as it does on the
+Android 12 baseline. This is an explicit legacy vendor limitation, not a full
+security-equivalence claim. No permissive domain or build-wide neverallow bypass
+has been added. FBE and all hardware functions require physical validation.
 
-New device code is Apache-2.0 (see per-file notices). Stock-derived metadata and
-upstream-derived code retain their original copyright and licensing terms.
+Build on the Ubuntu VM with `lunch lineage_gta3xlwifi-ap2a-userdebug`.
+Use the integration manifest, patches and verification tools for reproducibility.
+The optional packet probe is a test executable and must not ship in the ROM.

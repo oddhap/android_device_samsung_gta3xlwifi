@@ -5,7 +5,8 @@ cc_library_static {
     name: "libgta3xlwifi_power",
     srcs: ["Power.cpp"],
     export_include_dirs: ["."],
-    shared_libs: ["android.hardware.power-V2-cpp", "libbase", "liblog"],
+    defaults: ["android.hardware.power-ndk_shared"],
+    shared_libs: ["libbase", "liblog"],
     cflags: ["-Wall", "-Wextra", "-Werror"],
     cpp_std: "c++17",
 }

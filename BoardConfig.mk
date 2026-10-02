@@ -9,7 +9,6 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := cortex-a53
-TARGET_USES_64_BIT_BINDER := true
 
 TARGET_BOARD_PLATFORM := universal7904
 TARGET_SOC := exynos7904
@@ -38,7 +37,6 @@ BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
 BOARD_CUSTOM_BOOTIMG := true
 
 # Physical sizes read from this tablet; no dynamic partitions or A/B slots.
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
@@ -79,3 +77,6 @@ SOONG_CONFIG_gta3xlwifi_legacy_networking := true
 # Native PowerManager backend complements the unmodified stock Power HAL.
 SOONG_CONFIG_gta3xlwifi += native_power
 SOONG_CONFIG_gta3xlwifi_native_power := true
+
+# Preserve stock Samsung ISO/UDF labels; avoid duplicate Lineage genfs rules.
+BOARD_SEPOLICY_M4DEFS += gta3xlwifi_stock_removable_fs=true

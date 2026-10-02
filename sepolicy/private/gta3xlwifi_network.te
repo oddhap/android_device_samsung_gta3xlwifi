@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
+# Tag the inherited userspace CLAT socket for the kernel accounting exemption.
+allow system_server proc_qtaguid_ctrl:file { open write getattr };
+allow system_server qtaguid_device:chr_file { open read getattr };

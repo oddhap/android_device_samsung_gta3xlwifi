@@ -19,3 +19,13 @@ kernel_config {
     ],
     meta: "configs/kernel/android-base-conditional.xml",
 }
+
+// Samsung's unchanged Android 11 vendor advertises FCM level 3. The new
+// platform dropped its installation, so retain the Android P HAL contract
+// only for this product and continue checking all of its requirements.
+vintf_compatibility_matrix {
+    name: "framework_compatibility_matrix.gta3xlwifi.3.xml",
+    stem: "compatibility_matrix.3.xml",
+    srcs: ["configs/framework_matrix.3.xml"],
+    kernel_configs: ["kernel_config_gta3xlwifi_p_4.4"],
+}

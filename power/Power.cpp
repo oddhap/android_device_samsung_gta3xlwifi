@@ -2,7 +2,7 @@
 #define LOG_TAG "Gta3xlwifiPower"
 #include "BoostWindow.h"
 #include "Gta3xlwifiPower.h"
-#include <android/hardware/power/Mode.h>
+#include <aidl/android/hardware/power/Mode.h>
 #include <android-base/properties.h>
 #include <android-base/unique_fd.h>
 #include <log/log.h>
@@ -14,7 +14,7 @@
 #include <thread>
 
 using android::base::unique_fd;
-using android::hardware::power::Mode;
+using aidl::android::hardware::power::Mode;
 namespace gta3xlwifi {
 class Power {
   public:
