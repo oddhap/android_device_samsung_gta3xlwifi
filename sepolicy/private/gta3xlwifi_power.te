@@ -1,0 +1,7 @@
+# Independent framework CPU QoS endpoints leave stock vendor labels untouched.
+type gta3xlwifi_cpu_floor_device, dev_type;
+allow system_server gta3xlwifi_cpu_floor_device:chr_file { open read write getattr };
+# Only the GPU minimum request is writable; maximums and thermal limits are untouched.
+type sysfs_gta3xlwifi_gpu_floor, fs_type, sysfs_type;
+allow system_server sysfs_gta3xlwifi_gpu_floor:file { open write getattr };
+allow init sysfs_gta3xlwifi_gpu_floor:file { open write getattr };

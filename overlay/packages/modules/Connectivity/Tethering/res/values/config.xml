@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- This kernel uses the restored netd iptables/qtaguid implementation. -->
+    <bool name="config_tether_enable_bpf_offload">false</bool>
+</resources>

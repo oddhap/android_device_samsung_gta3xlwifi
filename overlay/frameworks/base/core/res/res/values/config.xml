@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- This Wi-Fi tablet has no physical navigation buttons or mobile radio. -->
+    <bool name="config_showNavigationBar">true</bool>
+    <bool name="config_voice_capable">false</bool>
+    <bool name="config_sms_capable">false</bool>
+</resources>

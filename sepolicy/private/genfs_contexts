@@ -1,0 +1,1 @@
+genfscon sysfs /devices/platform/11500000.mali/gta3xlwifi_min_lock u:object_r:sysfs_gta3xlwifi_gpu_floor:s0

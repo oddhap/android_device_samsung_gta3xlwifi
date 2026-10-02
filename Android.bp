@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: Apache-2.0
+package {
+    default_applicable_licenses: ["device_samsung_gta3xlwifi_license"],
+}
+
+license {
+    name: "device_samsung_gta3xlwifi_license",
+    license_kinds: ["SPDX-license-identifier-Apache-2.0", "legacy_notice"],
+}
+
+// Derived from the upstream P/4.4 profile. Only the five requirements tied to
+// the restored legacy networking path differ; all other constraints are kept.
+kernel_config {
+    name: "kernel_config_gta3xlwifi_p_4.4",
+    srcs: [
+        "configs/kernel/android-base.config",
+        "configs/kernel/android-base-arm.config",
+        "configs/kernel/android-base-arm64.config",
+    ],
+    meta: "configs/kernel/android-base-conditional.xml",
+}

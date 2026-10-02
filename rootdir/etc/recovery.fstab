@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: Apache-2.0
+/dev/block/platform/13500000.dwmmc0/by-name/boot /boot emmc defaults defaults
+/dev/block/platform/13500000.dwmmc0/by-name/recovery /recovery emmc defaults defaults
+/dev/block/platform/13500000.dwmmc0/by-name/misc /misc emmc defaults defaults
+/dev/block/platform/13500000.dwmmc0/by-name/system / ext4 ro wait
+/dev/block/platform/13500000.dwmmc0/by-name/vendor /vendor ext4 ro wait
+/dev/block/platform/13500000.dwmmc0/by-name/product /product ext4 ro wait
+/dev/block/platform/13500000.dwmmc0/by-name/cache /cache ext4 noatime,nosuid,nodev wait,check,formattable
+/dev/block/platform/13500000.dwmmc0/by-name/userdata /data ext4 noatime,nosuid,nodev wait,check,fileencryption=ice,quota,reservedsize=128M

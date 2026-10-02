@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# The verified SM-T510 CWA1 recovery uses configfs for its USB gadget.
+# Android init discovers the controller under /sys/class/udc automatically.
+on init
+    setprop sys.usb.configfs 1

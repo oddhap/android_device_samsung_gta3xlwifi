@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: Apache-2.0
+on init
+    # Only the two CPU minimum QoS devices are delegated to system_server.
+    chown system system /dev/gta3xlwifi_cluster0_min
+    chmod 0660 /dev/gta3xlwifi_cluster0_min
+    chown system system /dev/gta3xlwifi_cluster1_min
+    chmod 0660 /dev/gta3xlwifi_cluster1_min
+    chown system system /sys/devices/platform/11500000.mali/gta3xlwifi_min_lock
+    chmod 0660 /sys/devices/platform/11500000.mali/gta3xlwifi_min_lock
+    # Original Samsung miscpower service runs as system:system.
+    chown system system /sys/class/sec/tsp/input/enabled
+    chmod 0660 /sys/class/sec/tsp/input/enabled
+    chown system system /sys/class/power_supply/battery/lcd
+    chmod 0660 /sys/class/power_supply/battery/lcd
+
+# system_server death causes zygote to restart; GPU sysfs lacks fd cleanup.
+on property:init.svc.zygote=restarting
+    write /sys/devices/platform/11500000.mali/gta3xlwifi_min_lock 0
+
+on property:init.svc.zygote=stopped
+    write /sys/devices/platform/11500000.mali/gta3xlwifi_min_lock 0
