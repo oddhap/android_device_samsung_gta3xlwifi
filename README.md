@@ -42,3 +42,11 @@ Third boot passes process-group/APEX/BoringSSL startup, then returns to recovery
 because duplicate mounts suppress FBE keyring creation. The fourth candidate
 keeps root fstab for first stage and delegates cache/EFS/userdata mounts to the
 stock vendor init script once. Encryption and runtime checks remain pending.
+
+The fifth candidate completes Android 14 boot with encrypted data, enforcing
+SELinux and running audio/GPU services. Bluetooth exposes zero RT budget in
+new CPU scheduling subgroups. The sixth candidate places scheduling in CPU
+root (original finite RT budget) and uses real cpuset performance affinity.
+It also labels the exact legacy Exynos vsync property and grants composer
+read access. Physical performance, camera/audio and Bluetooth pairing tests
+are still required before a stability claim.

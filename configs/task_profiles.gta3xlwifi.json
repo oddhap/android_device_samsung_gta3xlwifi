@@ -7,6 +7,13 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
             "Path": "background"
           }
         }
@@ -21,6 +28,13 @@
             "Controller": "cpu",
             "Path": ""
           }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
+            "Path": ""
+          }
         }
       ]
     },
@@ -31,6 +45,13 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
             "Path": "system-background"
           }
         }
@@ -43,6 +64,13 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
             "Path": "foreground"
           }
         }
@@ -55,6 +83,13 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
             "Path": "top-app"
           }
         }
@@ -67,7 +102,14 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
-            "Path": "rt"
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
+            "Path": ""
           }
         }
       ]
@@ -79,6 +121,13 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
             "Path": "foreground"
           }
         }
@@ -91,6 +140,13 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
             "Path": "foreground"
           }
         }
@@ -103,6 +159,13 @@
           "Name": "JoinCgroup",
           "Params": {
             "Controller": "cpu",
+            "Path": ""
+          }
+        },
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
             "Path": "dex2oat"
           }
         }

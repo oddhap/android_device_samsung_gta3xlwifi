@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
+# The stock composer reads this legacy Exynos graphics setting every frame.
+# Its exact property label belongs to graphics_config_prop, not default_prop.
+get_prop(hal_graphics_composer, graphics_config_prop)
