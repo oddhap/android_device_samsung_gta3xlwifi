@@ -21,9 +21,9 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.gta3xlwifi.power.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.gta3xlwifi.power.rc \
-    $(LOCAL_PATH)/rootdir/etc/fstab.exynos7904:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos7904 \
-    $(LOCAL_PATH)/rootdir/init.exynos7904.rc:$(TARGET_COPY_OUT_RAMDISK)/init.exynos7904.rc \
-    $(LOCAL_PATH)/rootdir/ueventd.exynos7904.rc:$(TARGET_COPY_OUT_RAMDISK)/ueventd.exynos7904.rc
+    $(LOCAL_PATH)/rootdir/etc/fstab.exynos7904:$(TARGET_COPY_OUT_ROOT)/fstab.exynos7904 \
+    $(LOCAL_PATH)/rootdir/init.exynos7904.rc:$(TARGET_COPY_OUT_ROOT)/init.exynos7904.rc \
+    $(LOCAL_PATH)/rootdir/ueventd.exynos7904.rc:$(TARGET_COPY_OUT_ROOT)/ueventd.exynos7904.rc
 
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.sf.lcd_density=240 \
@@ -40,6 +40,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # the prebuilt vendor image and is checked separately against the new system.
 
 PRODUCT_PACKAGES += framework_compatibility_matrix.gta3xlwifi.3.xml
+PRODUCT_PACKAGES += gta3xlwifi_framework_legacy_sdk_manifest
 
 # Select the device-specific iptables/qtaguid implementation.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.gta3xlwifi.legacy_networking=true

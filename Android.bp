@@ -29,3 +29,12 @@ vintf_compatibility_matrix {
     srcs: ["configs/framework_matrix.3.xml"],
     kernel_configs: ["kernel_config_gta3xlwifi_p_4.4"],
 }
+
+// The unchanged Samsung vendor matrix retains its original SDK 28 contract.
+// Vendor APKs are resource-only overlays; native HALs use the VNDK 30 snapshot.
+prebuilt_etc {
+    name: "gta3xlwifi_framework_legacy_sdk_manifest",
+    src: "configs/framework_manifest.legacy_sdk.xml",
+    filename: "gta3xlwifi-legacy-sdk.xml",
+    sub_dir: "vintf/manifest",
+}

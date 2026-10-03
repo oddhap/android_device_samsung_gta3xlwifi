@@ -2,7 +2,9 @@
 /dev/block/platform/13500000.dwmmc0/by-name/boot /boot emmc defaults defaults
 /dev/block/platform/13500000.dwmmc0/by-name/recovery /recovery emmc defaults defaults
 /dev/block/platform/13500000.dwmmc0/by-name/misc /misc emmc defaults defaults
-/dev/block/platform/13500000.dwmmc0/by-name/system / ext4 ro wait
+# Android 14 releasetools names this partition /system; recovery mounts it at
+# /mnt/system. Its contents still form the physical system root during boot.
+/dev/block/platform/13500000.dwmmc0/by-name/system /system ext4 ro wait
 /dev/block/platform/13500000.dwmmc0/by-name/vendor /vendor ext4 ro wait
 /dev/block/platform/13500000.dwmmc0/by-name/product /product ext4 ro wait
 /dev/block/platform/13500000.dwmmc0/by-name/cache /cache ext4 noatime,nosuid,nodev wait,check,formattable

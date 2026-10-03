@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest version="1.0" type="framework">
+    <system-sdk>
+        <version>28</version>
+    </system-sdk>
+</manifest>
