@@ -2,11 +2,9 @@
 on early-init
     mount debugfs debugfs /sys/kernel/debug
 
-on fs
-    mount_all /fstab.exynos7904 --early
-
-on late-fs
-    mount_all /fstab.exynos7904 --late
+# Vendor init.exynos7904.rc mounts cache, EFS and userdata once on fs.
+# Repeating mount_all here causes EBUSY and prevents init's FBE keyring setup.
+# The root fstab remains the first-stage source for vendor/product mounts.
 
 on post-fs-data
     mkdir /data/vendor 0771 root root

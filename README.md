@@ -37,3 +37,8 @@ The second boot exposed an ownership change on the read-only /acct mountpoint
 before the v1 mount. A third integration candidate prepares the mountpoint
 without ownership changes and assigns ownership only after mounting. Hardware
 boot and runtime verification remain pending.
+
+Third boot passes process-group/APEX/BoringSSL startup, then returns to recovery
+because duplicate mounts suppress FBE keyring creation. The fourth candidate
+keeps root fstab for first stage and delegates cache/EFS/userdata mounts to the
+stock vendor init script once. Encryption and runtime checks remain pending.
