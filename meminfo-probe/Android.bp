@@ -1,0 +1,9 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_binary {
+    name: "gta3xlwifi-meminfo-probe",
+    srcs: ["meminfo-probe.cpp"],
+    shared_libs: ["libmeminfo", "libbase", "liblog"],
+    compile_multilib: "32",
+    installable: false,
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
