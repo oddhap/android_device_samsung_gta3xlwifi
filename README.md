@@ -2,7 +2,10 @@
 
 This device product builds Android 14 for `gta3xlwifi` from pinned LineageOS 21
 sources. It remains a development port: a full ROM and offline image, layout,
-ZIP, VINTF and runtime-policy checks pass; physical Android 14 testing is pending. The working Android 12L build provides
+ZIP, VINTF and runtime-policy checks pass. Candidate 6 boots Android 14 with
+encrypted file data and SELinux enforcing. Bluetooth, IPv4/DNS, process-group
+lifecycle and bounded touch/app-launch power tests pass. Complete physical
+function and stability tests remain pending. The working Android 12L build provides
 hardware/configuration provenance, not Android 14 validation.
 
 Android userspace remains ARM32 to match Samsung's graphics and HAL libraries.
@@ -21,7 +24,7 @@ stock vendor CIL links using Android init's runtime flags. A separate strict
 cross-version neverallow check fails on old Samsung policy, as it does on the
 Android 12 baseline. This is an explicit legacy vendor limitation, not a full
 security-equivalence claim. No permissive domain or build-wide neverallow bypass
-has been added. FBE and all hardware functions require physical validation.
+has been added. Credential/recovery and complete hardware tests remain pending.
 
 Build on the Ubuntu VM with `lunch lineage_gta3xlwifi-ap2a-userdebug`.
 Use the integration manifest, patches and verification tools for reproducibility.
@@ -50,3 +53,11 @@ root (original finite RT budget) and uses real cpuset performance affinity.
 It also labels the exact legacy Exynos vsync property and grants composer
 read access. Physical performance, camera/audio and Bluetooth pairing tests
 are still required before a stability claim.
+
+Candidate 6 physical boot confirms automatic Bluetooth ON with zero crashes,
+CPU root placement, root RT budget 950000/1000000 us and foreground RT budget 0.
+The repeated vsync property read denials are absent. Real touch and launch
+boost peaks, expiry, screen-off/wake and battery-saver cancellation pass; test
+battery overrides and diagnostic logging are restored. Both Samsung miscpower
+control descriptors open successfully. The tested build device-input revision
+is e3a925e24228d903683ccccb45661b82f4ef7fdd; this update changes documentation only.
