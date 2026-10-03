@@ -20,6 +20,9 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.example_recovery
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/cgroups.gta3xlwifi.json:$(TARGET_COPY_OUT_SYSTEM)/etc/cgroups.gta3xlwifi.json \
+    $(LOCAL_PATH)/configs/task_profiles.gta3xlwifi.json:$(TARGET_COPY_OUT_SYSTEM)/etc/task_profiles.gta3xlwifi.json \
+    $(LOCAL_PATH)/rootdir/init.gta3xlwifi.crypto.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.gta3xlwifi.crypto.rc \
     $(LOCAL_PATH)/rootdir/init.gta3xlwifi.power.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.gta3xlwifi.power.rc \
     $(LOCAL_PATH)/rootdir/etc/fstab.exynos7904:$(TARGET_COPY_OUT_ROOT)/fstab.exynos7904 \
     $(LOCAL_PATH)/rootdir/init.exynos7904.rc:$(TARGET_COPY_OUT_ROOT)/init.exynos7904.rc \

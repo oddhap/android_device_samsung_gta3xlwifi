@@ -1,0 +1,11 @@
+{
+  "Cgroups": [
+    {
+      "Controller": "cpuacct",
+      "Path": "/acct",
+      "Mode": "0775",
+      "UID": "system",
+      "GID": "system"
+    }
+  ]
+}
