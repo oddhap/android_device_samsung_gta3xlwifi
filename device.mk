@@ -42,7 +42,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # VINTF metadata is registered in BoardConfig; stock vendor policy remains in
 # the prebuilt vendor image and is checked separately against the new system.
 
-PRODUCT_PACKAGES += framework_compatibility_matrix.gta3xlwifi.3.xml
+PRODUCT_PACKAGES += framework_compatibility_matrix.gta3xlwifi.3.xml libaudiohal@4.0
 PRODUCT_PACKAGES += gta3xlwifi_framework_legacy_sdk_manifest
 
 # Select the device-specific iptables/qtaguid implementation.
