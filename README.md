@@ -33,4 +33,7 @@ groups and uses bounded signaling/cleanup in the integration's system/core
 patch. Device task profiles use supported CPU controller directories. Cached
 app v2 freezing is unsupported. ARM32 BoringSSL self-test triggers are kept in
 a regular init file, preserving upstream services and failure handling.
-Second-candidate hardware boot and runtime verification remain pending.
+The second boot exposed an ownership change on the read-only /acct mountpoint
+before the v1 mount. A third integration candidate prepares the mountpoint
+without ownership changes and assigns ownership only after mounting. Hardware
+boot and runtime verification remain pending.
