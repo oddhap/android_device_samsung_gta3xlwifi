@@ -47,3 +47,6 @@ PRODUCT_PACKAGES += gta3xlwifi_framework_legacy_sdk_manifest
 
 # Select the device-specific iptables/qtaguid implementation.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.gta3xlwifi.legacy_networking=true
+
+# Samsung's kernel supports usr/grp quota; project quota prevents /data mounting.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.gta3xlwifi.ext4_project_quota=false
