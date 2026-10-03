@@ -1,12 +1,11 @@
 # SM-T510 native LineageOS 21 development port
 
 This device product builds Android 14 for `gta3xlwifi` from pinned LineageOS 21
-sources. It remains a development port: a full ROM and offline image, layout,
-ZIP, VINTF and runtime-policy checks pass. Candidate 6 boots Android 14 with
-encrypted file data and SELinux enforcing. Bluetooth, IPv4/DNS, process-group
-lifecycle and bounded touch/app-launch power tests pass. Complete physical
-function and stability tests remain pending. The working Android 12L build provides
-hardware/configuration provenance, not Android 14 validation.
+sources. Candidate 7 boots with encrypted file data and SELinux enforcing.
+Offline images/package checks and actual-library GPU-memory/ordinary-RAM tests
+pass. The prior system-server abort in AppProfiler GPU memory reporting is
+corrected by the integration libmeminfo patch. This is a development port;
+complete hardware and stability testing remains pending.
 
 Android userspace remains ARM32 to match Samsung's graphics and HAL libraries.
 The ARM64 Samsung kernel and CWA1 vendor image are retained. No GApps, GSI,
@@ -61,3 +60,9 @@ boost peaks, expiry, screen-off/wake and battery-saver cancellation pass; test
 battery overrides and diagnostic logging are restored. Both Samsung miscpower
 control descriptors open successfully. The tested build device-input revision
 is e3a925e24228d903683ccccb45661b82f4ef7fdd; this update changes documentation only.
+
+Candidate 7 also accepts the framework INVALID_UID sentinel in bulk firewall
+updates without discarding real app rules. Restricted mode remains enforced.
+A migrated browser block-all policy was repaired through the policy service;
+other app policies remain intact. Candidate 7 device-input code revision is
+38fe8f491e6ba959824cd6c11ef5965f1163b17f; this update changes documentation only.
