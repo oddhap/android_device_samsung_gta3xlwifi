@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+# Stop marks an unstarted service disabled before class main is started.
+# Product actions can stop a vendor service; redefining it would cross the
+# init Treble subcontext boundary and is rejected on the actual device.
+on init
+    stop cpboot-daemon
+
+# The Samsung SIGTERM handler joins its own thread. Init stop uses SIGKILL,
+# closes the daemon's EFS descriptors before unmount, and leaves normal runtime
+# behavior intact. This hook runs only after Android requests shutdown/reboot.
+on shutdown
+    stop mobicore

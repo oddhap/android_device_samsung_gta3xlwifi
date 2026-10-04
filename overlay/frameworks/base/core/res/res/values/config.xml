@@ -4,4 +4,7 @@
     <bool name="config_showNavigationBar">true</bool>
     <bool name="config_voice_capable">false</bool>
     <bool name="config_sms_capable">false</bool>
+    <bool name="config_mobile_data_capable">false</bool>
+    <integer name="config_num_physical_slots">0</integer>
+    <string-array name="config_telephonyHardware" translatable="false" />
 </resources>

@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: Apache-2.0
 LOCAL_PATH := device/samsung/gta3xlwifi
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+# Manifest enablement must be compiled into TeleService, not deferred to RRO.
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/services/Telephony
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_AAPT_CONFIG := normal
@@ -50,3 +52,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.gta3xlwifi.legacy_networking=true
 
 # Samsung's kernel supports usr/grp quota; project quota prevents /data mounting.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.gta3xlwifi.ext4_project_quota=false
+
+# Parse service overrides after vendor init, and remove the inapplicable IMS flag.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/init.gta3xlwifi.compat.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.gta3xlwifi.compat.rc \
+    $(LOCAL_PATH)/configs/permissions.gta3xlwifi.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/permissions.gta3xlwifi.xml
+
+# Legacy kernel has no blkio controller. The device I/O profiles retain the
+# kernel's default I/O scheduling instead of attempting nonexistent groups.
