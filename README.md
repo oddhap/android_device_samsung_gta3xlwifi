@@ -1,7 +1,8 @@
 # SM-T510 native LineageOS 21 development port
 
 This device product builds Android 14 for `gta3xlwifi` from pinned LineageOS 21
-sources. Candidate 7 boots with encrypted file data and SELinux enforcing.
+sources. Candidate 12 boots and survives an ordinary reboot with encrypted
+file data and SELinux enforcing.
 Offline images/package checks and actual-library GPU-memory/ordinary-RAM tests
 pass. The prior system-server abort in AppProfiler GPU memory reporting is
 corrected by the integration libmeminfo patch. This is a development port;
@@ -66,3 +67,23 @@ updates without discarding real app rules. Restricted mode remains enforced.
 A migrated browser block-all policy was repaired through the policy service;
 other app policies remain intact. Candidate 7 device-input code revision is
 38fe8f491e6ba959824cd6c11ef5965f1163b17f; this update changes documentation only.
+
+## Wi-Fi-only and usage cleanup (2026-10-04)
+
+The tested device build-input revision is
+`2cd63e9d051ca181621fc20ddff6a4820f3b0713`; this follow-up changes documentation.
+Framework capabilities describe zero SIM/modem hardware. A static TeleService
+capability overlay disables both application enablement and persistence; the
+matching integration platform patches are required. Init stops cpboot-daemon
+before class main and stops MobiCore before shutdown unmount. Exact three type
+files and OTG online are labeled for the existing health permission. I/O
+profiles retain default scheduling where the kernel has no blkio controller.
+
+Candidate 12 pairs this tree with distinct release identity in the integration
+build wrapper. Android replaces stale package parse caches automatically. All
+210 installed package/UID records survive update and normal reboot; encryption,
+key availability, SELinux, signing and exact label checks pass. The final reboot
+has no current-boot crash/ANR/native tombstone, and EFS unmount succeeds after
+MobiCore stops. Previous user-authorized data formatting removed old data.
+See the integration's `lineage-21/notes/usage-compat.md` and scoped reports.
+Full hardware and long-term stability testing remain incomplete.
