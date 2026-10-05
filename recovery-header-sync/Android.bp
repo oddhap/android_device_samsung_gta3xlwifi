@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_binary {
+    name: "gta3xlwifi_recovery_header_sync",
+    srcs: ["recovery_header_sync.cpp"],
+    compile_multilib: "32",
+    static_executable: true,
+    stl: "libc++_static",
+    static_libs: ["libcrypto_static"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+    cppflags: ["-fexceptions"],
+}

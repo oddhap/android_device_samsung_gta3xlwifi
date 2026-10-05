@@ -46,6 +46,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 PRODUCT_PACKAGES += framework_compatibility_matrix.gta3xlwifi.3.xml libaudiohal@4.0
 PRODUCT_PACKAGES += gta3xlwifi_framework_legacy_sdk_manifest
+PRODUCT_PACKAGES += gta3xlwifi_recovery_header_sync
 
 # Select the device-specific iptables/qtaguid implementation.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.gta3xlwifi.legacy_networking=true

@@ -1,7 +1,7 @@
 # SM-T510 native LineageOS 21 development port
 
 This device product builds Android 14 for `gta3xlwifi` from pinned LineageOS 21
-sources. Candidate 12 boots and survives an ordinary reboot with encrypted
+sources. Candidate 13 boots and survives an ordinary reboot with encrypted
 file data and SELinux enforcing.
 Offline images/package checks and actual-library GPU-memory/ordinary-RAM tests
 pass. The prior system-server abort in AppProfiler GPU memory reporting is
@@ -87,3 +87,26 @@ has no current-boot crash/ANR/native tombstone, and EFS unmount succeeds after
 MobiCore stops. Previous user-authorized data formatting removed old data.
 See the integration's `lineage-21/notes/usage-compat.md` and scoped reports.
 Full hardware and long-term stability testing remain incomplete.
+
+## Automatic recovery metadata synchronization (2026-10-05)
+
+The signed LineageOS 21 OTA carries a static ARM32 recovery helper. Device
+releasetools derive the target OS/security-patch word from the actual ROM boot
+image, cross-check build properties, run preflight before partition installation
+and synchronize after writing boot. A normalized full-image SHA-256 recognizes
+only the published FBE-capable TWRP 3.7.1_12; unsupported images are kept with an
+installer notice. The helper changes only four header bytes in a verified
+512-byte sector, with readback and failure rollback. No TWRP rebuild, key-file
+changes, data wipe or encryption disablement is involved. Monthly Android 14
+updates through this project's OTA path are covered; different Android major
+versions and manual flashes require separate validation.
+
+Candidate 13 physically corrected a deliberately old on-disk August header to
+September while the running recovery retained its good September boot state.
+The entire recovery partition returned to its original bytes. Recovery PIN
+decryption and real CE reads pass after reboot. Android boots with encrypted
+data, private release keys and SELinux enforcing; all 15 key files and 210
+package/UID records are preserved. The BoringSSL static-library visibility entry
+and signed-package checks live in the pinned integration patches/tools. Kernel,
+stock vendor and DTBO inputs are unchanged. Long-term stability testing remains
+separate from this scoped installation/decryption test.
