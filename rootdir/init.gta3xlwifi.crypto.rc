@@ -1,9 +1,14 @@
 # SPDX-License-Identifier: Apache-2.0
-# Android 14 init opens imported files with O_NOFOLLOW. The upstream zygote32
-# import is a symlink, so preserve its ARM32 self-test triggers in a regular
-# device init file. Service definitions and failure handling remain upstream.
+# Regular device init file: Android 14 init uses O_NOFOLLOW for imports.
+# Preserve genuine platform/APEX self-tests for both supported ABIs.
 on init && property:ro.product.cpu.abilist32=*
     exec_start boringssl_self_test32
 
+on init && property:ro.product.cpu.abilist64=*
+    exec_start boringssl_self_test64
+
 on property:apexd.status=ready && property:ro.product.cpu.abilist32=*
     exec_start boringssl_self_test_apex32
+
+on property:apexd.status=ready && property:ro.product.cpu.abilist64=*
+    exec_start boringssl_self_test_apex64

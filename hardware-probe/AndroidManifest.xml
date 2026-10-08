@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.lineageos.gta3xlwifi.hardwareprobe">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application android:label="SM-T510 hardware check" android:allowBackup="false">
+        <activity android:name=".MainActivity" android:exported="true" android:configChanges="orientation|screenSize" />
+    </application>
+</manifest>

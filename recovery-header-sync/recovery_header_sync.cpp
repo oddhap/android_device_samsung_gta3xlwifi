@@ -20,12 +20,15 @@
 
 namespace {
 constexpr uint64_t kPartitionBytes = 47185920;
-constexpr size_t kImageBytes = 38979600;
 constexpr char kByName[] = "/dev/block/platform/13500000.dwmmc0/by-name/recovery";
 constexpr char kBlock[] = "/dev/block/mmcblk0p16";
-// SHA-256 of the physically tested 3.7.1_12 image with bytes 44..47 zeroed.
-// Other headers, kernel, ramdisk, DTBO and Samsung trailer must remain exact.
-constexpr char kIdentity[] = "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6";
+// Exact identities of the two physically tested 3.7.1_12 images, excluding
+// only OS/SPL bytes 44..47. Kernel, ramdisk, DTBO and trailer remain guarded.
+struct KnownRecovery { size_t bytes; const char* identity; };
+constexpr KnownRecovery kKnownRecoveries[] = {
+    {38979600, "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6"},
+    {38981648, "d8878895ec55959e9f3697c1ee3e8a983e304067a2cde26baa51d00fe664b751"},
+};
 constexpr char kStatus[] = "/tmp/gta3xlwifi-recovery-header.status";
 
 struct Fd {
@@ -60,12 +63,12 @@ uint32_t Word(const std::array<uint8_t, 512>& page) {
     return uint32_t(page[44]) | uint32_t(page[45]) << 8 |
            uint32_t(page[46]) << 16 | uint32_t(page[47]) << 24;
 }
-std::string Identity(int fd) {
+std::string Identity(int fd, size_t image_bytes) {
     SHA256_CTX ctx;
     Require(SHA256_Init(&ctx) == 1, "SHA-256 initialization failed");
     std::array<uint8_t, 65536> chunk;
-    for (size_t offset = 0; offset < kImageBytes;) {
-        size_t n = std::min(chunk.size(), kImageBytes - offset);
+    for (size_t offset = 0; offset < image_bytes;) {
+        size_t n = std::min(chunk.size(), image_bytes - offset);
         Read(fd, chunk.data(), n, offset);
         if (offset == 0) std::memset(chunk.data() + 44, 0, 4);
         Require(SHA256_Update(&ctx, chunk.data(), n) == 1, "SHA-256 update failed");
@@ -136,7 +139,16 @@ int main(int argc, char** argv) {
         Require(bytes == kPartitionBytes, "Unexpected RECOVERY partition size");
         std::array<uint8_t, 512> original;
         Read(fd.value, original.data(), original.size(), 0);
-        if (std::memcmp(original.data(), "ANDROID!", 8) != 0 || Identity(fd.value) != kIdentity) {
+        const KnownRecovery* recognized = nullptr;
+        if (std::memcmp(original.data(), "ANDROID!", 8) == 0) {
+            for (const auto& candidate : kKnownRecoveries) {
+                if (Identity(fd.value, candidate.bytes) == candidate.identity) {
+                    recognized = &candidate;
+                    break;
+                }
+            }
+        }
+        if (!recognized) {
             Status(status, "unsupported");
             std::puts("Recovery is not the recognized TWRP image; left unchanged.");
             return 0;
@@ -169,14 +181,14 @@ int main(int argc, char** argv) {
 #endif
             Require(fsync(fd.value) == 0, "Cannot synchronize RECOVERY write");
             Read(fd.value, latest.data(), latest.size(), 0);
-            Require(latest == updated && Identity(fd.value) == kIdentity,
+            Require(latest == updated && Identity(fd.value, recognized->bytes) == recognized->identity,
                     "RECOVERY readback failed");
             Status(status, "synchronized");
         } catch (...) {
             Write(fd.value, original.data(), original.size(), 0);
             Require(fsync(fd.value) == 0, "RECOVERY rollback synchronization failed");
             Read(fd.value, latest.data(), latest.size(), 0);
-            Require(latest == original && Identity(fd.value) == kIdentity,
+            Require(latest == original && Identity(fd.value, recognized->bytes) == recognized->identity,
                     "RECOVERY rollback verification failed");
             std::fputs("Original recovery header restored after synchronization failure.\n", stderr);
             throw;

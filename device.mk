@@ -61,3 +61,12 @@ PRODUCT_COPY_FILES += \
 
 # Legacy kernel has no blkio controller. The device I/O profiles retain the
 # kernel's default I/O scheduling instead of attempting nonexistent groups.
+
+# Dual-ABI WebView exceeds the fixed product partition; system has headroom.
+PRODUCT_FORCE_PRODUCT_MODULES_TO_SYSTEM_PARTITION += webview
+
+# Declare the complete userspace ABI list ahead of Samsung's ARM32 ODM metadata.
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.product.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi \
+    ro.product.product.cpu.abilist64=arm64-v8a \
+    ro.product.product.cpu.abilist32=armeabi-v7a,armeabi

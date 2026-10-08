@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.lineageos.gta3xlwifi.smoke32">
+    <application android:label="SM-T510 ARM32 graphics check" android:allowBackup="false">
+        <activity android:name="org.lineageos.gta3xlwifi.smoke.MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

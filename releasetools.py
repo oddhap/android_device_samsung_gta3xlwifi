@@ -1,8 +1,15 @@
 # SPDX-License-Identifier: Apache-2.0
 """Keep the tested SM-T510 TWRP header aligned with each signed Android 14 OTA."""
+import hashlib
+import os
+import sparse_img
 import re
 import struct
 import common
+
+_VENDOR_SHA256 = "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939"
+_VENDOR_BYTES = 343932928
+_VENDOR_MOUNT_GUARD = b'#!/sbin/sh\n[ -r /proc/mounts ] || exit 2\nseen=0\nwhile read source mountpoint rest; do\n    seen=1\n    case "$mountpoint" in /vendor|/vendor/*) exit 1 ;; esac\ndone < /proc/mounts\n[ "$seen" = 1 ] || exit 2\nexit 0\n'
 
 _BIN = "gta3xlwifi_recovery_header_sync"
 _TMP = "/tmp/" + _BIN
@@ -45,6 +52,16 @@ def _begin(info):
                             'ui_print("Installed recovery is not a supported TWRP build; it will be kept unchanged."); endif;' % _STATUS)
 
 
+    # TWRP uses vendor for decryption. Refuse all image writes while mounted.
+    # Stop its crypto services after unlocking data, then unmount before install.
+    # AOSP updater cannot resolve this TWRP's vendor fstab volume.
+    # Require the real mount table to be clear; never weaken the pre-write gate.
+    common.ZipWriteStr(info.output_zip, "vendor-unmounted-check.sh", _VENDOR_MOUNT_GUARD)
+    info.script.AppendExtra('package_extract_file("vendor-unmounted-check.sh", "/tmp/vendor-unmounted-check.sh");')
+    info.script.AppendExtra('assert(run_program("/sbin/sh", "/tmp/vendor-unmounted-check.sh") == "0" || '
+                            'abort("Vendor is mounted or its state cannot be verified. Stop recovery crypto services and unmount vendor."));')
+
+
 def _end(info):
     _, word = _target(info)
     info.script.AppendExtra('assert(run_program("%s", "--apply", "%s") == "0" || '
@@ -57,3 +74,31 @@ FullOTA_InstallBegin = _begin
 FullOTA_InstallEnd = _end
 IncrementalOTA_InstallBegin = _begin
 IncrementalOTA_InstallEnd = _end
+
+
+def _hybrid_vendor(archive, directory):
+    data = archive.read("IMAGES/vendor.img")
+    if hashlib.sha256(data).hexdigest() != _VENDOR_SHA256:
+        raise ValueError("Hybrid vendor differs from the reviewed image")
+    image = sparse_img.SparseImage(os.path.join(directory, "IMAGES", "vendor.img"),
+                                  clobbered_blocks="0")
+    if image.blocksize * image.total_blocks != _VENDOR_BYTES:
+        raise ValueError("Hybrid vendor exceeds the physical vendor layout")
+    return image
+
+
+def FullOTA_GetBlockDifferences(info):
+    # Prebuilt vendor is absent from VENDOR/ in target-files, so generic OTA
+    # generation skips it. Explicitly include a standard block-image update.
+    image = _hybrid_vendor(info.input_zip, info.input_tmp)
+    return [common.BlockDifference("vendor", image, src=None)]
+
+
+def IncrementalOTA_GetBlockDifferences(info):
+    target = _hybrid_vendor(info.target_zip, info.target_tmp)
+    source = sparse_img.SparseImage(os.path.join(info.source_tmp, "IMAGES", "vendor.img"),
+                                   clobbered_blocks="0")
+    if source.blocksize * source.total_blocks != _VENDOR_BYTES:
+        raise ValueError("Source vendor has an incompatible physical layout")
+    return [common.BlockDifference("vendor", target, src=source, check_first_block=True,
+                                   version=4, disable_imgdiff=True)]

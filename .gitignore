@@ -1,3 +1,16 @@
 prebuilt/
 configs/stock/
 __pycache__/
+
+# Private data and build outputs are never source publication inputs.
+.private/
+publication/
+*.pk8
+*.pem
+*.key
+*.img
+*.zip
+*.tar
+*.tar.gz
+__pycache__/
+*.pyc
