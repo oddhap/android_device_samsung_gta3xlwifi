@@ -19,3 +19,9 @@ on property:init.svc.zygote=restarting
 
 on property:init.svc.zygote=stopped
     write /sys/devices/platform/11500000.mali/gta3xlwifi_min_lock 0
+
+on post-fs-data
+    chown system system /sys/class/sec/tsp/double_tap_to_wake
+    chmod 0660 /sys/class/sec/tsp/double_tap_to_wake
+    chown system system /sys/class/sec/tsp/input/enabled
+    chmod 0660 /sys/class/sec/tsp/input/enabled

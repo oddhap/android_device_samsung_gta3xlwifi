@@ -16,3 +16,11 @@ cc_test_host {
     cflags: ["-Wall", "-Wextra", "-Werror"],
     cpp_std: "c++17",
 }
+
+cc_test_host {
+    name: "gta3xlwifi-touch-wake-test",
+    srcs: ["TouchWakeTest.cpp"],
+    gtest: false,
+    cflags: ["-Wall", "-Wextra", "-Werror", "-UNDEBUG"],
+    cpp_std: "c++17",
+}

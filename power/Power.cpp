@@ -2,9 +2,12 @@
 #define LOG_TAG "Gta3xlwifiPower"
 #include "BoostWindow.h"
 #include "Gta3xlwifiPower.h"
+#include "TouchWake.h"
 #include <aidl/android/hardware/power/Mode.h>
+#include <android-base/file.h>
 #include <android-base/properties.h>
 #include <android-base/unique_fd.h>
+#include <android-base/strings.h>
 #include <log/log.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -43,7 +46,12 @@ class Power {
     }
     bool mode(int32_t value, bool enabled) {
         std::lock_guard<std::mutex> guard(mMutex);
-        if (!mReady) return false;
+        // Gesture/touch control is independent of CPU/GPU boost readiness.
+        if (static_cast<Mode>(value) == Mode::DOUBLE_TAP_TO_WAKE)
+            return mTouch.doubleTap(enabled);
+        const bool touchHandled = static_cast<Mode>(value) == Mode::INTERACTIVE &&
+                                  mTouch.interactive(enabled);
+        if (!mReady) return touchHandled;
         switch (static_cast<Mode>(value)) {
             case Mode::INTERACTIVE: mWindow.interactive(enabled); break;
             case Mode::LOW_POWER: mWindow.lowPower(enabled); break;
@@ -55,9 +63,27 @@ class Power {
         }
         // Clear before the caller can suspend, not after a worker wakeup.
         update("mode");
-        return mReady;
+        return mReady || touchHandled;
     }
   private:
+    static bool writeTouchControl(TouchControl control, bool enabled) {
+        const char* path = control == TouchControl::DoubleTap
+                ? "/sys/class/sec/tsp/double_tap_to_wake"
+                : "/sys/class/sec/tsp/input/enabled";
+        const char value = enabled ? '1' : '0';
+        unique_fd fd(open(path, O_WRONLY | O_CLOEXEC));
+        if (!fd.ok() || TEMP_FAILURE_RETRY(write(fd.get(), &value, 1)) != 1) {
+            ALOGE("Touch power control failed: %s=%c errno=%d", path, value, errno);
+            return false;
+        }
+        std::string readback;
+        if (!android::base::ReadFileToString(path, &readback) ||
+                android::base::Trim(readback) != std::string(1, value)) {
+            ALOGE("Touch power readback failed: %s=%c", path, value);
+            return false;
+        }
+        return true;
+    }
     static bool writeCpu(int fd, int frequency) {
         const int32_t value = frequency;
         return TEMP_FAILURE_RETRY(write(fd, &value, sizeof(value))) == static_cast<ssize_t>(sizeof(value));
@@ -113,6 +139,7 @@ class Power {
         }
     }
     unique_fd mLittle, mBig, mGpu;
+    TouchWake mTouch{writeTouchControl};
     bool mReady = false;
     BoostWindow mWindow;
     Floors mApplied;

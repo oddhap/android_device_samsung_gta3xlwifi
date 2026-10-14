@@ -5,3 +5,8 @@ allow system_server gta3xlwifi_cpu_floor_device:chr_file { open read write getat
 type sysfs_gta3xlwifi_gpu_floor, fs_type, sysfs_type;
 allow system_server sysfs_gta3xlwifi_gpu_floor:file { open write getattr };
 allow init sysfs_gta3xlwifi_gpu_floor:file { open write getattr };
+
+# Only boolean wake/touch endpoints; no touchscreen factory-command access.
+type sysfs_gta3xlwifi_touch_power, fs_type, sysfs_type;
+allow system_server sysfs_gta3xlwifi_touch_power:file { open read write getattr };
+allow init sysfs_gta3xlwifi_touch_power:file { open write getattr };

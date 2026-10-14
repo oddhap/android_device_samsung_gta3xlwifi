@@ -1,5 +1,8 @@
 genfscon sysfs /devices/platform/11500000.mali/gta3xlwifi_min_lock u:object_r:sysfs_gta3xlwifi_gpu_floor:s0
 
+genfscon sysfs /devices/virtual/sec/tsp/double_tap_to_wake u:object_r:sysfs_gta3xlwifi_touch_power:s0
+genfscon sysfs /devices/platform/13870000.i2c/i2c-9/9-0049/input/input1/enabled u:object_r:sysfs_gta3xlwifi_touch_power:s0
+
 # Actual charger/fuel-gauge type files read by the stock health HAL.
 genfscon sysfs /devices/platform/13830000.i2c/i2c-6/6-003b/power_supply/s2mu005-fuelgauge/type u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/platform/13840000.i2c/i2c-7/7-003d/s2mu005-charger/power_supply/otg/type u:object_r:sysfs_batteryinfo:s0
