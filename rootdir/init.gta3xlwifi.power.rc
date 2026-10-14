@@ -8,8 +8,8 @@ on init
     chown system system /sys/devices/platform/11500000.mali/gta3xlwifi_min_lock
     chmod 0660 /sys/devices/platform/11500000.mali/gta3xlwifi_min_lock
     # Original Samsung miscpower service runs as system:system.
-    chown system system /sys/class/sec/tsp/input/enabled
-    chmod 0660 /sys/class/sec/tsp/input/enabled
+    chown system system /sys/class/sec/tsp/input_enabled
+    chmod 0660 /sys/class/sec/tsp/input_enabled
     chown system system /sys/class/power_supply/battery/lcd
     chmod 0660 /sys/class/power_supply/battery/lcd
 

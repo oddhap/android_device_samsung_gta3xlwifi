@@ -69,7 +69,7 @@ class Power {
     static bool writeTouchControl(TouchControl control, bool enabled) {
         const char* path = control == TouchControl::DoubleTap
                 ? "/sys/class/sec/tsp/double_tap_to_wake"
-                : "/sys/class/sec/tsp/input/enabled";
+                : "/sys/class/sec/tsp/input_enabled";
         const char value = enabled ? '1' : '0';
         unique_fd fd(open(path, O_WRONLY | O_CLOEXEC));
         if (!fd.ok() || TEMP_FAILURE_RETRY(write(fd.get(), &value, 1)) != 1) {
