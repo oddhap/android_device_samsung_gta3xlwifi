@@ -28,7 +28,7 @@ struct KnownRecovery { size_t bytes; const char* identity; };
 constexpr KnownRecovery kKnownRecoveries[] = {
     {38979600, "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6"},
     {38981648, "d8878895ec55959e9f3697c1ee3e8a983e304067a2cde26baa51d00fe664b751"},
-    {40275984, "c31cb977f1d5a92913b35c73488b5462f179dd11dfb3b9e672f715ecaa9f0975"},
+    {40275984, "5eb6d0f8fbb75f08d7156d3de1118fc429eff44543fd61e6a7c1b8c99dc21239"},
 };
 constexpr char kStatus[] = "/tmp/gta3xlwifi-recovery-header.status";
 
