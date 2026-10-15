@@ -22,12 +22,13 @@ namespace {
 constexpr uint64_t kPartitionBytes = 47185920;
 constexpr char kByName[] = "/dev/block/platform/13500000.dwmmc0/by-name/recovery";
 constexpr char kBlock[] = "/dev/block/mmcblk0p16";
-// Exact identities of the two physically tested 3.7.1_12 images, excluding
+// Exact identities of the supported 3.7.1_12 images, excluding
 // only OS/SPL bytes 44..47. Kernel, ramdisk, DTBO and trailer remain guarded.
 struct KnownRecovery { size_t bytes; const char* identity; };
 constexpr KnownRecovery kKnownRecoveries[] = {
     {38979600, "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6"},
     {38981648, "d8878895ec55959e9f3697c1ee3e8a983e304067a2cde26baa51d00fe664b751"},
+    {40275984, "c31cb977f1d5a92913b35c73488b5462f179dd11dfb3b9e672f715ecaa9f0975"},
 };
 constexpr char kStatus[] = "/tmp/gta3xlwifi-recovery-header.status";
 
