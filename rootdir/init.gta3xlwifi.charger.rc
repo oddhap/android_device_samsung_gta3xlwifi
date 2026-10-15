@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: Apache-2.0
+# Stock Samsung health provides battery data but no charger UI. The stock
+# sec-charger class has no service in this ROM; start the platform UI during
+# charger boot, without starting Android's main/late_start classes.
+service charger /system/bin/charger
+    class charger
+    user root
+    group root system graphics input wakelock
+    capabilities SYS_BOOT
+    file /dev/kmsg w
