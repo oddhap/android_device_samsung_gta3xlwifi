@@ -64,17 +64,11 @@ PRODUCT_COPY_FILES += \
 # Legacy kernel has no blkio controller. The device I/O profiles retain the
 # kernel's default I/O scheduling instead of attempting nonexistent groups.
 
-# Dual-ABI WebView exceeds the fixed product partition; system has headroom.
-# Preserve product space for the original MindTheGapps ARM64 installer.
-# Keep apps and their privileged permission allowlists on the same partition.
+# Make-based modules honor this override. Soong apps, JNI and companion
+# permission modules are moved by the pinned GApps layout platform patches.
+# Keep the fixed product partition available for the original ARM64 GApps ZIP.
 PRODUCT_FORCE_PRODUCT_MODULES_TO_SYSTEM_PARTITION += \
-    webview \
-    Aperture ApertureLensLauncher Backgrounds DeskClock Etar ExactCalculator \
-    Gallery2 libjni_eglfence libjni_filtershow_filters libjni_jpegstream \
-    Glimpse Jelly LatinIME libjni_latinime LocalContactsBackup \
-    PhotoTable Recorder \
-    Contacts privapp_whitelist_com.android.contacts \
-    Eleven privapp_whitelist_org.lineageos.eleven
+    webview Backgrounds PhotoTable
 
 # Declare the complete userspace ABI list ahead of Samsung's ARM32 ODM metadata.
 PRODUCT_PRODUCT_PROPERTIES += \
