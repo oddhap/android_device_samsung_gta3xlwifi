@@ -7,20 +7,21 @@ This branch uses the existing ARM64 Linux 4.4.302 kernel and a minimal hybrid
 vendor: CWA1 Samsung HAL/TEE services plus selected A305GT ARM64 graphics clients.
 The beta ZIP installs vendor as well as boot/system/product.
 
-- [Download and installation/rollback guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261007)
+- [Download and installation/rollback guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014)
 - [Pinned platform patches, donor inputs and build tools](https://github.com/oddhap/android_build_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
 - [Kernel](https://github.com/oddhap/android_kernel_samsung_gta3xlwifi/tree/lineage-21.0)
 
 `abi-graphics` and `hardware-probe` are separate test modules; they are not
-installed in the released ROM. The October 14 candidate uses the latest fetched
+installed in the released ROM. The October 14 beta uses the latest fetched
 LineageOS 21.0 source snapshot, with framework security patch 2026-10-01; the
 Samsung vendor/kernel remain older. The previous ARM32 branch is retained.
 
-The candidate adds the standard Display setting for double tap to wake. It
+The beta adds the standard Display setting for double tap to wake. It
 requires the matching FTS driver update: `KEY_WAKEUP`, a boolean
 `double_tap_to_wake` sysfs control, and touch suspend/resume via the native power
 backend. The setting, native backend, sysfs ownership and narrow SELinux labels
-must be shipped together with that kernel. Host tests pass; physical validation
-of the new ROM is still pending. The linked October 7 release is unchanged.
+must be shipped together with that kernel. Host tests and physical double-tap
+wake validation pass on the signed October 14 ROM. ARM32/ARM64 Mali graphics and basic hardware regression checks pass.
+See the integration repository for the precise scope and remaining beta limits.
 
 New configuration is Apache-2.0; upstream files retain their original notices.
