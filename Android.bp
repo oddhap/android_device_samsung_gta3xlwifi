@@ -67,3 +67,24 @@ gta3xlwifi_partition_java_defaults {
         },
     },
 }
+
+// Original FCM5/6 HAL contracts for the retained Android11 vendor stack.
+// Preserve all kernel requirements; these add no service implementations.
+vintf_compatibility_matrix {
+    name: "framework_compatibility_matrix.gta3xlwifi.5.xml",
+    stem: "compatibility_matrix.5.xml",
+    srcs: ["configs/legacy-fcm/compatibility_matrix.5.xml"],
+    kernel_configs: ["gta3xlwifi_legacy_kernel_config_r_5.4"],
+}
+
+vintf_compatibility_matrix {
+    name: "framework_compatibility_matrix.gta3xlwifi.6.xml",
+    stem: "compatibility_matrix.6.xml",
+    srcs: ["configs/legacy-fcm/compatibility_matrix.6.xml"],
+    kernel_configs: [
+        "gta3xlwifi_legacy_kernel_config_s_4.14",
+        "kernel_config_s_4.19",
+        "kernel_config_s_5.4",
+        "kernel_config_s_5.10",
+    ],
+}

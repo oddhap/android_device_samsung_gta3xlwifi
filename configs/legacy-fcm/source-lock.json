@@ -1,0 +1,24 @@
+{
+  "hardware_interfaces_revision": "13d687a84c834af855bfb314b853b8372a7aa6d9",
+  "kernel_configs_revision": "091688a5c5186cd124a0d19b06441bb8b04c3073",
+  "files": {
+    "compatibility_matrix.5.xml": "23d3a31e0df51c8882580e6acd70febf8eaf0a3460cf4bd5b9ff40528a9a2a2b",
+    "compatibility_matrix.6.xml": "b45c3e04bb36dac46a744a52c0b61ea80b869ff9d1cd7328993d0a7618e95165",
+    "kernel/s-4.14/android-base-conditional.xml": "1c70287b72607a95ec8e8a1fc8d6318821a5546e71622406dfebc6cf40609051",
+    "kernel/s-4.14/non_debuggable.config": "7d0ce32d48af8d08e6233e6fce27fc45a9cfead2197726261738e92419a837a7",
+    "kernel/s-4.14/Android.bp": "8e48bc9ceee77dde5a716c1178f1769f45d0d676ca05c345ac3ed9fc2b40e038",
+    "kernel/s-4.14/android-base.config": "dba7c8f06e1d553654717c89fca3543a6e4b58c4e20a1750c61250b61d15db82",
+    "kernel/r-5.4/android-base-conditional.xml": "ca6b266361df06c38a569f654a774f325f86231ea0fe3c66872ccef2e870cb4e",
+    "kernel/r-5.4/non_debuggable.config": "7d0ce32d48af8d08e6233e6fce27fc45a9cfead2197726261738e92419a837a7",
+    "kernel/r-5.4/Android.bp": "3ca47470767565f3c0d3cb9a031f853a55a40cd98cfa26a0f479bc39d915cea7",
+    "kernel/r-5.4/android-base.config": "cd7a9109c926158c8db718d981e15f92c83dd006c59882edb193336090789a22"
+  },
+  "imported_xml_and_config_content_unchanged": true,
+  "module_names_device_scoped": true,
+  "existing_android17_s_kernel_profiles_retained": [
+    "4.19",
+    "5.4",
+    "5.10"
+  ],
+  "hardware_or_kernel_compatibility_not_proven_by_import": true
+}

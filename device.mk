@@ -84,3 +84,8 @@ PRODUCT_PACKAGES += \
     system_ext_30.0.cil \
     system_ext_30.0.compat.cil \
     product_30.0.cil
+
+# Restore complete legacy HAL contracts dropped by the Android17 platform.
+PRODUCT_PACKAGES += \
+    framework_compatibility_matrix.gta3xlwifi.5.xml \
+    framework_compatibility_matrix.gta3xlwifi.6.xml
