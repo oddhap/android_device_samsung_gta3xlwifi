@@ -38,3 +38,32 @@ prebuilt_etc {
     filename: "gta3xlwifi-legacy-sdk.xml",
     sub_dir: "vintf/manifest",
 }
+
+// Make's PRODUCT_FORCE_PRODUCT_MODULES_TO_SYSTEM_PARTITION does not change
+// Soong install paths or apkcerts metadata. Keep all three selected APKs on
+// system for this fixed-partition product, without changing their certificates.
+// Other products retain the original product partition placement.
+soong_config_module_type {
+    name: "gta3xlwifi_partition_java_defaults",
+    module_type: "java_defaults",
+    config_namespace: "gta3xlwifi",
+    bool_variables: ["system_apps"],
+    properties: ["product_specific"],
+}
+
+gta3xlwifi_partition_java_defaults {
+    name: "gta3xlwifi_partition_app_defaults",
+    defaults_visibility: [
+        "//external/chromium-webview:__pkg__",
+        "//packages/apps/Backgrounds:__pkg__",
+        "//packages/screensavers/PhotoTable:__pkg__",
+    ],
+    soong_config_variables: {
+        system_apps: {
+            product_specific: false,
+            conditions_default: {
+                product_specific: true,
+            },
+        },
+    },
+}

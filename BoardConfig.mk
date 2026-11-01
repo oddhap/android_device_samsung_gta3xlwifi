@@ -28,6 +28,10 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CONFIG := exynos7885-gta3xlwifi_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
+# Keep the separately source-built, checksum-pinned bring-up kernel. Merely
+# setting TARGET_PREBUILT_KERNEL does not prevent Lineage from rebuilding it
+# when kernel sources are present. A 24.0 kernel rebuild is a separate task.
+TARGET_FORCE_PREBUILT_KERNEL := true
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_BOOT_HEADER_VERSION := 1
@@ -79,6 +83,10 @@ TARGET_SCREEN_DENSITY := 240
 SOONG_CONFIG_NAMESPACES += gta3xlwifi
 SOONG_CONFIG_gta3xlwifi += legacy_networking
 SOONG_CONFIG_gta3xlwifi_legacy_networking := true
+
+# Match the retained Make app overrides in Soong install/certificate metadata.
+SOONG_CONFIG_gta3xlwifi += system_apps
+SOONG_CONFIG_gta3xlwifi_system_apps := true
 
 # Native PowerManager backend complements the unmodified stock Power HAL.
 SOONG_CONFIG_gta3xlwifi += native_power
