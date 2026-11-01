@@ -6,7 +6,10 @@ This is an unfinished source-built device port, not an installation-ready ROM.
 
 The retained baseline is the working LineageOS 21 ARM64 port: Samsung Linux
 4.4.302, physical non-A/B partitions, Samsung Android 11 HAL/TEE services and a
-minimal A305GT ARM64 graphics donor layer. Original kernel/DTBO/vendor inputs
+minimal A305GT ARM64 graphics donor layer. The selected vendor image includes
+the November 1 LineageOS 21 FunctionFS MTP fix (SHA-256
+`a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a`); its Android 14 transfer tests do not validate Android 17 USB.
+Kernel/DTBO and the reviewed vendor inputs
 remain hash-bound; isolated kernel experiments are not promoted into prebuilts.
 
 The 24 branch carries the product partition defaults, forced prebuilt kernel,
