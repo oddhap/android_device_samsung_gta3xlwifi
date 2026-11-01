@@ -1,33 +1,28 @@
-# SM-T510 LineageOS 21 — ARM64 beta device tree
+# SM-T510 — LineageOS 24 device bring-up
 
-Native ARM64 userspace with ARM32 app support; Galaxy Tab A 10.1 (2019), Wi-Fi
-**SM-T510 / gta3xlwifi only**. Android 14, no GApps, FBE and SELinux Enforcing.
+LineageOS 24.0 / Android 17 development branch for the Samsung Galaxy Tab A
+10.1 (2019), **SM-T510 / gta3xlwifi only**, native ARM64 with ARM32 app support.
+This is an unfinished source-built device port, not an installation-ready ROM.
 
-This branch uses the existing ARM64 Linux 4.4.302 kernel and a minimal hybrid
-vendor: CWA1 Samsung HAL/TEE services plus selected A305GT ARM64 graphics clients.
-The beta ZIP installs vendor as well as boot/system/product.
+The retained baseline is the working LineageOS 21 ARM64 port: Samsung Linux
+4.4.302, physical non-A/B partitions, Samsung Android 11 HAL/TEE services and a
+minimal A305GT ARM64 graphics donor layer. Original kernel/DTBO/vendor inputs
+remain hash-bound; isolated kernel experiments are not promoted into prebuilts.
 
-- [Download and installation/rollback guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014)
-- [Pinned platform patches, donor inputs and build tools](https://github.com/oddhap/android_build_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
-- [Kernel](https://github.com/oddhap/android_kernel_samsung_gta3xlwifi/tree/lineage-21.0)
+The 24 branch carries the product partition defaults, forced prebuilt kernel,
+optional memory cgroup declaration and the official `aosp_current` lunch release
+alias. Its complete platform patches, source locks, setup, audits and current
+limitations are in the [LineageOS 24 integration directory](https://github.com/oddhap/android_build_samsung_gta3xlwifi/tree/lineage-24.0-arm64/lineage-24.0).
 
-`abi-graphics` and `hardware-probe` are separate test modules; they are not
-installed in the released ROM. The October 15 beta uses the LineageOS 21.0 snapshot fetched again October 15
-(no revision changes since October 14), with framework security patch 2026-10-01; the
-Samsung vendor/kernel remain older. The previous ARM32 branch is retained.
+Strict actual-vendor SELinux compatibility, kernel policycaps, complete legacy
+networking, Android 17 cgroup/zygote/runtime behavior, both-ABI HAL/APEX/graphics,
+Samsung TEE/FBE, recovery/OTA and hardware testing remain open. Preserve enforcing
+policy, neverallows and the Android-14-only installation/recovery guards until
+compatibility is proven. Android 14 GApps/recovery test results do not validate
+Android 17. Do not flash diagnostic images or replace the working TWRP.
 
-The beta adds the standard Display setting for double tap to wake. It
-requires the matching FTS driver update: `KEY_WAKEUP`, a boolean
-`double_tap_to_wake` sysfs control, and touch suspend/resume via the native power
-backend. The setting, native backend, sysfs ownership and narrow SELinux labels
-must be shipped together with that kernel. Host tests and physical double-tap
-wake validation pass on the signed October 14 ROM. ARM32/ARM64 Mali graphics and basic hardware regression checks pass.
-See the integration repository for the precise scope and remaining beta limits.
-
-The October 15 follow-up explicitly packages the native ARM64 charger and
-starts it through `init.gta3xlwifi.charger.rc`, in the charger class only.
-Powered-off animation/percentage, normal automatic blanking and Power button
-behavior have been physically verified. The Samsung health HAL, charging
-driver, DT2W kernel and native wake code are retained; no SELinux bypass is added.
+The [existing LineageOS 21 ARM64 release](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261015)
+remains the rollback reference. Verified backups and separate owner approval are
+required before a concrete installation experiment.
 
 New configuration is Apache-2.0; upstream files retain their original notices.
