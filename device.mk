@@ -75,3 +75,12 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.product.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi \
     ro.product.product.cpu.abilist64=arm64-v8a \
     ro.product.product.cpu.abilist32=armeabi-v7a,armeabi
+
+# Samsung Android 11 vendor policy is version 30.0. Install the real generated
+# compatibility maps; strict vendor policy/runtime approval remains separate.
+PRODUCT_PACKAGES += \
+    plat_30.0.cil \
+    30.0.compat.cil \
+    system_ext_30.0.cil \
+    system_ext_30.0.compat.cil \
+    product_30.0.cil
