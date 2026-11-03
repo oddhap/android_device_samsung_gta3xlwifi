@@ -46,6 +46,8 @@ BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
 BOARD_CUSTOM_BOOTIMG := true
 
 # Physical sizes read from this tablet; no dynamic partitions or A/B slots.
+# Android 17 defaults to the A/B updater when this is unset.
+AB_OTA_UPDATER := false
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
