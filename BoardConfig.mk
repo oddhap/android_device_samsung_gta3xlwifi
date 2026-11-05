@@ -96,3 +96,7 @@ SOONG_CONFIG_gta3xlwifi_native_power := true
 
 # Preserve stock Samsung ISO/UDF labels; avoid duplicate Lineage genfs rules.
 BOARD_SEPOLICY_M4DEFS += gta3xlwifi_stock_removable_fs=true
+
+# Real legacy v1 fscrypt keyring API; never disable userdata encryption.
+SOONG_CONFIG_gta3xlwifi += legacy_fscrypt
+SOONG_CONFIG_gta3xlwifi_legacy_fscrypt := true
