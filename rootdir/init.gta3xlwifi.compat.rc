@@ -5,6 +5,13 @@
 on init
     stop cpboot-daemon
 
+    # qtaguid filters rows by these real groups; readable alone is insufficient.
+    # Keep its kernel UID restrictions enabled and restrict direct control writes.
+    chown root net_bw_stats /proc/net/xt_qtaguid/stats
+    chmod 0440 /proc/net/xt_qtaguid/stats
+    chown root net_bw_acct /proc/net/xt_qtaguid/ctrl
+    chmod 0660 /proc/net/xt_qtaguid/ctrl
+
 # The Samsung SIGTERM handler joins its own thread. Init stop uses SIGKILL,
 # closes the daemon's EFS descriptors before unmount, and leaves normal runtime
 # behavior intact. This hook runs only after Android requests shutdown/reboot.
