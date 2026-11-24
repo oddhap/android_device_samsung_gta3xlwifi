@@ -1,0 +1,43 @@
+// SPDX-License-Identifier: Apache-2.0
+// HIDL-only Bluetooth audio module + in-process provider for the VNDK v30
+// Samsung audio HAL. Built explicitly; not in PRODUCT_PACKAGES.
+cc_library_shared {
+    name: "gta3xlwifi_btaudio_shim",
+    stem: "audio.bluetooth.exynos7904",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "32",
+    stl: "c++_static",
+    srcs: [
+        "A2dpOffloadAudioProvider.cpp",
+        "A2dpSoftwareAudioProvider.cpp",
+        "BluetoothAudioProvider.cpp",
+        "BluetoothAudioProvidersFactory.cpp",
+        "BluetoothAudioSession.cpp",
+        "BluetoothAudioSupportedCodecsDB.cpp",
+        "HearingAidAudioProvider.cpp",
+        "audio_bluetooth_hw.cc",
+        "device_port_proxy_hidl.cc",
+        "gta3xlwifi_register.cpp",
+        "stream_apis.cc",
+        "utils.cc",
+    ],
+    cflags: ["-Wall", "-Werror", "-Wno-sign-compare", "-Wno-unused-parameter", "-Wno-unused-variable", "-Wno-unused-function"],
+    defaults: [
+        "latest_android_hardware_audio_common_ndk_static",
+        "latest_android_hardware_bluetooth_audio_ndk_static",
+    ],
+    header_libs: ["libhardware_headers"],
+    static_libs: ["libbase"],
+    shared_libs: [
+        "android.hardware.audio.common@5.0",
+        "android.hardware.bluetooth.audio@2.0",
+        "libaudioutils",
+        "libbinder_ndk",
+        "libcutils",
+        "libfmq",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+    ],
+}

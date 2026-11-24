@@ -1,0 +1,50 @@
+{
+  "origin": "LineageOS 24 SM-T510 runtime35 Bluetooth audio implementation",
+  "staging": "btaudio-shim24-20261120-04",
+  "original_module_sha256": "d4151bd15bd635730abb5c38f27eace955de2c4bb5d0d4f3ae3d37e2fddae863",
+  "purpose": "Rebuild the HIDL 2.0 software audio module and in-process provider for LineageOS 21 and validate against VNDK v30.",
+  "features": [
+    "A2DP source media playback",
+    "AVRCP target"
+  ],
+  "excluded": [
+    "LE Audio",
+    "HFP microphone"
+  ],
+  "security_policy_change_required": false,
+  "source_files_sha256": {
+    "A2dpOffloadAudioProvider.cpp": "86a33ac136f0bd35dd94e1bf0a2199bdbcdda9a40762728128d564a55f5f031b",
+    "A2dpOffloadAudioProvider.h": "ce0fbee671cc42028afa62590c44c557702a4d4b19946c571662edfdcd28dc7d",
+    "A2dpSoftwareAudioProvider.cpp": "ee1ef5e0ec8a1346e0347c09cbc44eb7de34270394b2f248bd96cf87e1e38d92",
+    "A2dpSoftwareAudioProvider.h": "a2a80068ee5f8ce045bf7a26b757aead621b14a94bdb10fe29cb9f02cba11574",
+    "Android.bp": "11566a12f106c8ad15c167a5750c512f4508c558c24f0a81a3a718cabc215a6e",
+    "BluetoothAudioProvider.cpp": "b0cdbbb1f79126fa984c0880db87da5b8a696acf2315dbb33408cd4c366aee26",
+    "BluetoothAudioProvider.h": "6aa5f838ac6b1c171eac368141a8e688a78878101bec9fc80685d8225099c0ab",
+    "BluetoothAudioProvidersFactory.cpp": "6cbe078029dc21122a3fc06d564afd79e9dd4f9b28d549a108f8044a5391a149",
+    "BluetoothAudioProvidersFactory.h": "84a84c2c8a793548a9861ec9c06ec8fcfb64c276ea8887eca9197faea532034e",
+    "BluetoothAudioSession.cpp": "14899872ac5c0e4fecb6c71d7d8c752c889d2ddfe1511f86377381a91bc9794d",
+    "BluetoothAudioSession.h": "a52570e5a9fa3000a4c625ab3005d9aee5d91d72be1891e89f79b0dd05a09862",
+    "BluetoothAudioSessionControl.h": "a3f8f8ac84e0ccde6476092a743dc5d562791b72e55d31b2622f5c35dd96378e",
+    "BluetoothAudioSessionControl_2_1.h": "1b211644ca4dc871a560cc5e1cc29fa589d79573ad1c850cb8434ce6f9d9c1f6",
+    "BluetoothAudioSessionReport.h": "54a6bcb31274702fba608d08750966191b3b7e202df55fdcda09adede51bb09b",
+    "BluetoothAudioSessionReport_2_1.h": "afa244cc713810baff19661f548da607510135256d9b9fdcd6a93962fb97b3e1",
+    "BluetoothAudioSession_2_1.h": "34de7b87bdcaa4265250879bea7f68791740ac84dac127c8099562d937039eb1",
+    "BluetoothAudioSupportedCodecsDB.cpp": "761e327259655364779d2befe308400acb362cb5445e1f58f0c68a6b68d90744",
+    "BluetoothAudioSupportedCodecsDB.h": "b6ebccab7ca0d52cef53e3ee4fc64c2eece3b7863965d55462171c2170c14f14",
+    "BluetoothAudioSupportedCodecsDB_2_1.h": "d19dc5f2c438356f0a15c92aaded4677ca6b2b0b485ead0c1b6edc54234c0243",
+    "HearingAidAudioProvider.cpp": "a0a035f71f9c4e99af5cac43d2aa784d1b60352db132463a66132dbf98051259",
+    "HearingAidAudioProvider.h": "d8f0a596e0a964e3cc7761d809085186af18901f356f3eb0d5ff8bd706809b57",
+    "audio_bluetooth_hw.cc": "0123b3856df1afa5aea15bc217700819cc149a22afe5f61079e08790eab6fe15",
+    "device_port_proxy.h": "ac0c31858fea5f6323dfcf933570dd281de2032be0149ccfef203fc876ce279c",
+    "device_port_proxy_hidl.cc": "820ab6e28726f2e537978735a2c10e7f3b5352c179869753092b88bd265ee0c6",
+    "device_port_proxy_hidl.h": "54197805301781631ef56c8d43d4e968f0837fde12e6ef15cb6abcd7a91ada36",
+    "gta3xlwifi_register.cpp": "8793f76e5adac49d4889e6bbcf339f9bcda16e28d45e1d5aa81ef26d4cf707c4",
+    "stream_apis.cc": "28311a0bd5d4417cd99eb26e68b6430c9b976d83db927a300cd71ea34e45168d",
+    "stream_apis.h": "e974c2a6c21601944972c083ab7915e9b7b74fbe15baa195486faa604bf25cf6",
+    "utils.cc": "16ff8c5a49dc596c6dca01326774e11b7b5a121006cab60bb00f10226eb23116",
+    "utils.h": "2d25869361d5098ce7b9e691ee09d5368a7b64c2bac8ac82fcf445f2d50cebaa",
+    "vendor/etc/bluetooth_audio_policy_configuration.xml": "877d8745fe542a2e1070d773d64c7c6b3d03168679d3d8355dd8ee283c5ec884",
+    "vendor/etc/vintf/manifest/gta3xlwifi_btaudio.xml": "d029ca2cd4ea4458c3d691a3f11258c6787da2c56c071e828b0df90ba77383f2"
+  },
+  "lineage21_adaptation": "Implement Android 14 FMQ errorWriteLog identically to system/libfmq/FmqInternal.cpp; VNDK30 lacks that wrapper. All queue rejection and security logging retained."
+}

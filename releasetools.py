@@ -7,7 +7,7 @@ import re
 import struct
 import common
 
-_VENDOR_SHA256 = "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a"
+_VENDOR_SHA256 = "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282"
 _VENDOR_BYTES = 343932928
 _VENDOR_MOUNT_GUARD = b'#!/sbin/sh\n[ -r /proc/mounts ] || exit 2\nseen=0\nwhile read source mountpoint rest; do\n    seen=1\n    case "$mountpoint" in /vendor|/vendor/*) exit 1 ;; esac\ndone < /proc/mounts\n[ "$seen" = 1 ] || exit 2\nexit 0\n'
 

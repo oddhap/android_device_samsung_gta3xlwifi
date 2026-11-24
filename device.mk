@@ -75,3 +75,26 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.product.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi \
     ro.product.product.cpu.abilist64=arm64-v8a \
     ro.product.product.cpu.abilist32=armeabi-v7a,armeabi
+
+# Android 13+ gates profile startup on these properties. Enable classic audio
+# and companion profiles as in the LineageOS 24 fix. LE Audio and HFP remain
+# disabled for this tablet's legacy audio path.
+PRODUCT_PRODUCT_PROPERTIES += \
+    bluetooth.profile.a2dp.source.enabled=true \
+    bluetooth.profile.avrcp.target.enabled=true \
+    bluetooth.profile.bas.client.enabled=true \
+    bluetooth.profile.gatt.enabled=true \
+    bluetooth.profile.hid.host.enabled=true \
+    bluetooth.profile.opp.enabled=true \
+    bluetooth.profile.pan.nap.enabled=true \
+    bluetooth.profile.pan.panu.enabled=true \
+    bluetooth.profile.bap.broadcast.assist.enabled=false \
+    bluetooth.profile.bap.broadcast.source.enabled=false \
+    bluetooth.profile.bap.unicast.client.enabled=false \
+    bluetooth.profile.bass.client.enabled=false \
+    bluetooth.profile.ccp.server.enabled=false \
+    bluetooth.profile.csip.set_coordinator.enabled=false \
+    bluetooth.profile.hap.client.enabled=false \
+    bluetooth.profile.hfp.ag.enabled=false \
+    bluetooth.profile.mcp.server.enabled=false \
+    bluetooth.profile.vcp.controller.enabled=false
