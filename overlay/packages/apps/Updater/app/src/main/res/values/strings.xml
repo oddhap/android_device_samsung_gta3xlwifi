@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-License-Identifier: Apache-2.0
+     Unofficial device: download.lineageos.org has no changelog page for gta3xlwifi.
+     Every OTA release on GitHub carries its changelog.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_changelog_url" translatable="false">https://github.com/oddhap/lineageos21_gta3xlwifi/releases</string>
+</resources>

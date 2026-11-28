@@ -98,3 +98,8 @@ PRODUCT_PRODUCT_PROPERTIES += \
     bluetooth.profile.hfp.ag.enabled=false \
     bluetooth.profile.mcp.server.enabled=false \
     bluetooth.profile.vcp.controller.enabled=false
+
+# OTA index for the built-in LineageOS Updater (HTTPS without redirects; the
+# value must stay within the 91-byte limit for non-ro properties).
+PRODUCT_SYSTEM_PROPERTIES += \
+    lineage.updater.uri=https://raw.githubusercontent.com/oddhap/lineageos21_gta3xlwifi/ota/{device}.json

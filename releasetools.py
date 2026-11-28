@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Keep the tested SM-T510 TWRP header aligned with each signed Android 14 OTA."""
+"""Keep the tested SM-T510 TWRP header aligned with each signed Android 14 OTA;
+quiesce TWRP vendor use so LineageOS Updater installs can pass the vendor guard."""
 import hashlib
 import os
 import sparse_img
@@ -10,6 +11,7 @@ import common
 _VENDOR_SHA256 = "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282"
 _VENDOR_BYTES = 343932928
 _VENDOR_MOUNT_GUARD = b'#!/sbin/sh\n[ -r /proc/mounts ] || exit 2\nseen=0\nwhile read source mountpoint rest; do\n    seen=1\n    case "$mountpoint" in /vendor|/vendor/*) exit 1 ;; esac\ndone < /proc/mounts\n[ "$seen" = 1 ] || exit 2\nexit 0\n'
+_VENDOR_QUIESCE = b'#!/sbin/sh\n# TWRP runs its FBE helper daemons from the read-only /vendor mount. Stop the\n# services the manual sideload preflight stops, then unmount vendor (no lazy\n# unmount). The OTA\'s vendor-unmounted guard decides afterwards.\nfor s in keystore2 recovery-gatekeeper recovery-keymaster recovery-mobicore recovery-crypto-props; do\n    /system/bin/stop "$s"\ndone\ni=0\nwhile [ $i -lt 10 ]; do\n    busy=0\n    while read source mountpoint rest; do\n        case "$mountpoint" in /vendor|/vendor/*) busy=1 ;; esac\n    done < /proc/mounts\n    [ $busy = 0 ] && exit 0\n    /system/bin/umount /vendor\n    /system/bin/sleep 1\n    i=$((i + 1))\ndone\nexit 1\n'
 
 _BIN = "gta3xlwifi_recovery_header_sync"
 _TMP = "/tmp/" + _BIN
@@ -52,6 +54,14 @@ def _begin(info):
                             'ui_print("Installed recovery is not a supported TWRP build; it will be kept unchanged."); endif;' % _STATUS)
 
 
+    # TWRP mounts vendor read-only at boot and runs its FBE helper daemons from it.
+    # An Updater install runs unattended: stop exactly the services the manual
+    # sideload preflight stops and unmount vendor. Not trusted: the
+    # vendor-unmounted guard below must still pass. (Same script as the
+    # physically tested LineageOS 24 OTA; the TWRP build is shared.)
+    common.ZipWriteStr(info.output_zip, "recovery-vendor-quiesce.sh", _VENDOR_QUIESCE)
+    info.script.AppendExtra('package_extract_file("recovery-vendor-quiesce.sh", "/tmp/recovery-vendor-quiesce.sh");')
+    info.script.AppendExtra('run_program("/sbin/sh", "/tmp/recovery-vendor-quiesce.sh");')
     # TWRP uses vendor for decryption. Refuse all image writes while mounted.
     # Stop its crypto services after unlocking data, then unmount before install.
     # AOSP updater cannot resolve this TWRP's vendor fstab volume.
