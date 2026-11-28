@@ -29,6 +29,8 @@ constexpr KnownRecovery kKnownRecoveries[] = {
     {38979600, "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6"},
     {38981648, "d8878895ec55959e9f3697c1ee3e8a983e304067a2cde26baa51d00fe664b751"},
     {40275984, "5eb6d0f8fbb75f08d7156d3de1118fc429eff44543fd61e6a7c1b8c99dc21239"},
+    // 2026-11-28: same image with only the ABGR libminuitwrp (blue accent).
+    {40273936, "45344fd27769764622738f99d938ff3cce0d186764c7c23ddc872de292468bf0"},
 };
 constexpr char kStatus[] = "/tmp/gta3xlwifi-recovery-header.status";
 
